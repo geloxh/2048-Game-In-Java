@@ -1,10 +1,9 @@
-import java.sql.RowId;
 import java.util.Random;
 import java.util.Scanner;
 
 public class MainGame {
     private static final int SIZE = 4;
-    private static final int WINNING_TITLE = 2048;
+    private static final int WINNING_TILE = 2048;
     private static int[][] board;
     private static int score;
     private static boolean gameOver;
@@ -17,7 +16,7 @@ public class MainGame {
         System.out.println("s - Down");
         System.out.println("a - Left");
         System.out.println("d - Right");
-        System.out.println("Try to reach " + WINNING_TITLE + " to win!");
+        System.out.println("Try to reach " + WINNING_TILE + " to win!");
         
         do {
             initializeBoard(); // Initialize the game board
@@ -205,94 +204,94 @@ public class MainGame {
                 }
             }
         }
+    }
 
-        private static void moveDown() {
-            for (int col = 0; col < SIZE; col++) {
-                for (int row = SIZE - 2; row >= 0; row--) {
-                    if (board[row][col] != 0) {
-                        int currentRow = row;
+    private static void moveDown() {
+        for (int col = 0; col < SIZE; col++) {
+            for (int row = SIZE - 2; row >= 0; row--) {
+                if (board[row][col] != 0) {
+                    int currentRow = row;
 
-                        while (currentRow < SIZE - 1 && board[currentRow + 1][col] == 0) {
-                            board[currentRow + 1][col] = board[currentRow][col];
-                            board[currentRow][col] = 0;
-                            currentRow++;
-                        }
+                    while (currentRow < SIZE - 1 && board[currentRow + 1][col] == 0) {
+                        board[currentRow + 1][col] = board[currentRow][col];
+                        board[currentRow][col] = 0;
+                        currentRow++;
+                    }
 
-                        if (currentRow < SIZE - 1 && board[currentRow + 1][col] == board[currentRow][col]) {
-                            board[currentRow + 1][col] *= 2;
-                            score += board[currentRow + 1][col];
-                            board[currentRow][col] = 0;
-                        }
+                    if (currentRow < SIZE - 1 && board[currentRow + 1][col] == board[currentRow][col]) {
+                        board[currentRow + 1][col] *= 2;
+                        score += board[currentRow + 1][col];
+                        board[currentRow][col] = 0;
                     }
                 }
             }
         }
+    }
 
-        private static void moveLeft() {
-            for (int row = 0; row < SIZE; row++) {
-                for (int col = 1; col < SIZE; col++) {
-                    if (board[row][col] != 0) {
-                        int currentCol = col;
+    private static void moveLeft() {
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 1; col < SIZE; col++) {
+                if (board[row][col] != 0) {
+                    int currentCol = col;
 
-                        while (currentCol > 0 && board[row][currentCol - 1] == 0) {
-                            board[row][currentCol -1] = board[row][currentCol];
-                            board[row][currentCol] = 0;
-                            currentCol--;
-                        }
+                    while (currentCol > 0 && board[row][currentCol - 1] == 0) {
+                        board[row][currentCol -1] = board[row][currentCol];
+                        board[row][currentCol] = 0;
+                        currentCol--;
+                    }
 
-                        if (currentCol > 0 && board[row][currentCol - 1] == board[row][currentCol]) {
-                            board[row][currentCol - 1] *= 2;
-                            score += board[row][currentCol - 1];
-                            board[row][currentCol] = 0;
-                        }
+                    if (currentCol > 0 && board[row][currentCol - 1] == board[row][currentCol]) {
+                        board[row][currentCol - 1] *= 2;
+                        score += board[row][currentCol - 1];
+                        board[row][currentCol] = 0;
                     }
                 }
             }
         }
+    }
 
-        private static void moveRight() {
-            for (int row = 0; row < SIZE; row++) {
-                for (int col = SIZE - 2; col >= 0; col--) {
-                    if (board[row][col] != 0) {
-                        int currentCol = col;
+    private static void moveRight() {
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = SIZE - 2; col >= 0; col--) {
+                if (board[row][col] != 0) {
+                    int currentCol = col;
 
-                        while (currentCol < SIZE - 1 && board[row][currentCol + 1] == 0) {
-                            board[row][currentCol + 1] = board[row][currentCol];
-                            board[row][currentCol] = 0;
-                            currentCol++;
-                        }
+                    while (currentCol < SIZE - 1 && board[row][currentCol + 1] == 0) {
+                        board[row][currentCol + 1] = board[row][currentCol];
+                        board[row][currentCol] = 0;
+                        currentCol++;
+                    }
 
-                        if (currentCol < SIZE - 1 && board[row][currentCol + 1] = board[row][currentCol]) {
-                            board[row][currentCol + 1] *= 2;
-                            score += board[row][currentCol + 1];
-                            board[row][currentCol] = 0;
-                        }
+                    if (currentCol < SIZE - 1 && board[row][currentCol + 1] == board[row][currentCol]) {
+                        board[row][currentCol + 1] *= 2;
+                        score += board[row][currentCol + 1];
+                        board[row][currentCol] = 0;
                     }
                 }
             }
         }
+    }
 
-        private static boolean isBoardFull() {
-            for (int[] row : board) {
-                for (int tile : row) {
-                    if (tile == 0) {
-                        return false; // Return false if any cell is empty
-                    }
+    private static boolean isBoardFull() {
+        for (int[] row : board) {
+            for (int tile : row) {
+                if (tile == 0) {
+                    return false; // Return false if any cell is empty
                 }
             }
-            return true; // Return true if all cells are filled
-
         }
+        return true; // Return true if all cells are filled
 
-        private static boolean checkForWin() {
-            for (int[] row : board) {
-                for (int tile : row) {
-                    if (tile == WINNING_TILE) {
-                        return true;
-                    }
+    }
+
+    private static boolean checkForWin() {
+        for (int[] row : board) {
+            for (int tile : row) {
+                if (tile == WINNING_TILE) {
+                    return true;
                 }
             }
-            return false;
         }
+        return false;
     }
 }  
